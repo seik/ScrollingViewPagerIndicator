@@ -6,6 +6,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -71,6 +72,16 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
         itemMargin = gapSize / 2;
 
         setHorizontalScrollBarEnabled(false);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        return false;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return false;
     }
 
     public void attachViewPager(ViewPager viewPager) {
