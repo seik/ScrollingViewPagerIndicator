@@ -175,15 +175,22 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
     private void goToPosition(int position) {
         int newCenterLayoutPosition = position + extraItems;
         View oldCenterView = linearLayout.getChildAt(currentCenterLayoutPosition);
-        oldCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
-                R.drawable.circle_unselected, null));
+
+        if(oldCenterView != null) {
+            oldCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
+                    R.drawable.circle_unselected, null));
+        }
 
         int positionToScroll = (gapSize * position) + (position * dotSize);
         smoothScrollTo(positionToScroll, 0);
 
         View newCenterView = linearLayout.getChildAt(newCenterLayoutPosition);
-        newCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
-                R.drawable.circle_selected, null));
+
+        if (newCenterView != null) {
+            newCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
+                    R.drawable.circle_selected, null));
+
+        }
 
         currentCenterLayoutPosition = position + extraItems;
 
@@ -204,7 +211,11 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
             animation.setDuration(100);
 
             leftView.setAlpha(alpha);
-            rightView.setAlpha(alpha);
+
+
+            if (rightView != null) {
+                rightView.setAlpha(alpha);
+            }
 
             alpha = ((float) 1.0 / extraItems) + alpha;
         }
