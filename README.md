@@ -5,7 +5,7 @@ Custom view for indicate position.
 
 ## How it looks like
 
-<img src="https://raw.githubusercontent.com/Seik/ScrollingViewPagerIndicator/master/demo.gif" width="300" height="548">
+<img src="https://i.imgur.com/AqiFdew.gif">
 
 ## Installation
 In your project level build.gradle :
