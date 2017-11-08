@@ -2,6 +2,7 @@ package me.ivmg.scrollingviewpagerindicator;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -84,11 +85,18 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
         return false;
     }
 
-    public void attachViewPager(ViewPager viewPager) {
+    public void attachViewPager(final ViewPager viewPager) {
         if (dotSize == null) dotSize = (int) getResources().getDimension(DEFAULT_DOT_SIZE);
         if (gapSize == null) gapSize = (int) getResources().getDimension(DEFAULT_GAP_SIZE);
 
         if (viewPager.getAdapter() == null) return;
+
+        viewPager.getAdapter().registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                attachViewPager(viewPager);
+            }
+        });
 
         viewPager.addOnPageChangeListener(onPageChangeListener);
 
@@ -101,6 +109,8 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         linearLayout.setLayoutParams(linearLayoutParams);
+
+        if (getChildCount() > 0) removeAllViewsInLayout();
 
         addView(linearLayout);
 
