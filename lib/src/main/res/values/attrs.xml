@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ScrollViewPagerIndicator">
+        <attr name="dotSize" format="dimension"/>
+        <attr name="gapSize" format="dimension"/>
+        <attr name="visibleItems" format="integer"/>
+    </declare-styleable>
+</resources>
