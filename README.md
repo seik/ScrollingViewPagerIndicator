@@ -23,7 +23,7 @@ In your app level build.gradle :
 
 ```java
 dependencies {
-    implementation 'com.github.Seik:ScrollingViewPagerIndicator:1.0.0'
+    implementation 'com.github.Seik:ScrollingViewPagerIndicator:{latest_version}'
 }
 ```
 
