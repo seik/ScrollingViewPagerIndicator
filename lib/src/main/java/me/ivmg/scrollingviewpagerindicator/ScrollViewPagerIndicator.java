@@ -1,12 +1,15 @@
 package me.ivmg.scrollingviewpagerindicator;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +22,15 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
     // In dp
     private int DEFAULT_DOT_SIZE = 15;
     private int DEFAULT_GAP_SIZE = 3;
+    private int DEFAULT_SCROLL_SPEED = 100;
 
 
     private LinearLayout linearLayout;
 
     private Integer dotSize;
     private Integer gapSize;
+    private Integer scrollSpeed;
+
     private Integer itemMargin;
     private Integer visibleItems;
     private Integer extraItems;
@@ -66,6 +72,8 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
                 dpToPx(DEFAULT_DOT_SIZE));
         gapSize = typedArray.getDimensionPixelSize(R.styleable.ScrollViewPagerIndicator_gapSize,
                 dpToPx(DEFAULT_GAP_SIZE));
+        scrollSpeed = typedArray.getInteger(R.styleable.ScrollViewPagerIndicator_scrollSpeed,
+                DEFAULT_SCROLL_SPEED);
         visibleItems = typedArray.getInteger(R.styleable.ScrollViewPagerIndicator_visibleItems, 0);
 
         typedArray.recycle();
@@ -164,7 +172,8 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
         }
 
         int positionToScroll = (gapSize * position) + (position * dotSize);
-        smoothScrollTo(positionToScroll, 0);
+
+        ObjectAnimator.ofInt(this, "scrollX",  positionToScroll).setDuration(scrollSpeed).start();
 
         View newCenterView = linearLayout.getChildAt(newCenterLayoutPosition);
 
@@ -235,7 +244,7 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
     }
 
     public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        Resources r = getResources();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }
 }

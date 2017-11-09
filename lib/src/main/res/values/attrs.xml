@@ -3,6 +3,7 @@
     <declare-styleable name="ScrollViewPagerIndicator">
         <attr name="dotSize" format="dimension"/>
         <attr name="gapSize" format="dimension"/>
+        <attr name="scrollSpeed" format="integer"/>
         <attr name="visibleItems" format="integer"/>
     </declare-styleable>
 </resources>
