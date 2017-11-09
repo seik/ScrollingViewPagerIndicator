@@ -41,7 +41,7 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
 
         @Override
         public void onPageSelected(int position) {
-            goToPosition(position);
+            goTo(position);
         }
 
         @Override
@@ -154,6 +154,31 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
         setAlphas();
     }
 
+    public void goTo(int position) {
+        int newCenterLayoutPosition = position + extraItems;
+        View oldCenterView = linearLayout.getChildAt(currentCenterLayoutPosition);
+
+        if(oldCenterView != null) {
+            oldCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
+                    R.drawable.circle_unselected, null));
+        }
+
+        int positionToScroll = (gapSize * position) + (position * dotSize);
+        smoothScrollTo(positionToScroll, 0);
+
+        View newCenterView = linearLayout.getChildAt(newCenterLayoutPosition);
+
+        if (newCenterView != null) {
+            newCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
+                    R.drawable.circle_selected, null));
+
+        }
+
+        currentCenterLayoutPosition = position + extraItems;
+
+        setAlphas();
+    }
+
     private void measureItems(ViewPager viewPager) {
         this.realNumItems = viewPager.getAdapter().getCount();
 
@@ -180,31 +205,6 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
         viewGroupLayoutParams.height = dotSize;
 
         setLayoutParams(viewGroupLayoutParams);
-    }
-
-    private void goToPosition(int position) {
-        int newCenterLayoutPosition = position + extraItems;
-        View oldCenterView = linearLayout.getChildAt(currentCenterLayoutPosition);
-
-        if(oldCenterView != null) {
-            oldCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
-                    R.drawable.circle_unselected, null));
-        }
-
-        int positionToScroll = (gapSize * position) + (position * dotSize);
-        smoothScrollTo(positionToScroll, 0);
-
-        View newCenterView = linearLayout.getChildAt(newCenterLayoutPosition);
-
-        if (newCenterView != null) {
-            newCenterView.setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
-                    R.drawable.circle_selected, null));
-
-        }
-
-        currentCenterLayoutPosition = position + extraItems;
-
-        setAlphas();
     }
 
     private void setAlphas() {
