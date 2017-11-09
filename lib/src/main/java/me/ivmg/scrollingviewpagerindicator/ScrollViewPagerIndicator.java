@@ -99,13 +99,6 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
 
         if (viewPager.getAdapter() == null) return;
 
-        viewPager.getAdapter().registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                attachViewPager(viewPager);
-            }
-        });
-
         viewPager.addOnPageChangeListener(onPageChangeListener);
 
         measureItems(viewPager);
