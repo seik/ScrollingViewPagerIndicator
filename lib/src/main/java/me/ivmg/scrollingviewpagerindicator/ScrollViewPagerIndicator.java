@@ -8,7 +8,7 @@ import android.database.DataSetObserver;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
+
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -221,6 +221,20 @@ public class ScrollViewPagerIndicator extends HorizontalScrollView {
 
         float alpha = 0.20f;
         for (int i = extraItems; i > 0; i--) {
+
+            if (i == extraItems) {
+                View externalLeftView = linearLayout.getChildAt(currentCenterLayoutPosition - i - 1);
+                View externalRightView = linearLayout.getChildAt(currentCenterLayoutPosition + i + 1);
+
+                if (externalLeftView != null) {
+                    externalLeftView.setAlpha(0);
+                }
+
+                if (externalRightView != null) {
+                    externalRightView.setAlpha(0);
+                }
+            }
+
             View leftView = linearLayout.getChildAt(currentCenterLayoutPosition - i);
             View rightView = linearLayout.getChildAt(currentCenterLayoutPosition + i);
 

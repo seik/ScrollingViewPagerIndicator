@@ -19,8 +19,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        app:dotSize="16dp"
-        app:gapSize="3dp"
+        app:dotSize="14dp"
+        app:gapSize="2dp"
         app:scrollSpeed="300"
         app:visibleItems="5" />
 </RelativeLayout>
